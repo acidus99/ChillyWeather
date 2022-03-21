@@ -10,6 +10,8 @@ namespace Chilly
     {
         CultureInfo culture;
 
+        public bool IsMetric;
+
         public Formatter(string cultureName = "en-US")
         {
             culture = new CultureInfo(cultureName, false);
@@ -26,6 +28,9 @@ namespace Chilly
             return next.ToString("ddd d");
         }
 
+        public string FormatHour(DateTime time)
+            => time.ToString("h tt");
+
         public string FormatTime(DateTime time)
             => time.ToString("ddd d h:mm tt");
 
@@ -33,7 +38,10 @@ namespace Chilly
             => chance.ToString("P", culture.NumberFormat);
 
         public string FormatTemp(float temp)
-            => Math.Round(temp).ToString() + "°";
+            => Math.Round(temp).ToString() + DegreeUnit;
+
+        public string DegreeUnit
+            => IsMetric ? "°C" : "°F";
 
         public string EmojiForCurrentWeather(CurrentCondition current)
         {

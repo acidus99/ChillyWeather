@@ -51,6 +51,9 @@ namespace Chilly.Models
         public HourlyCondition [] Hourly;
 
         public DailyCondition[] Daily;
+
+        public bool IsMetric;
+
     }
 
     public enum WeatherType
@@ -66,5 +69,4 @@ namespace Chilly.Models
         Thunderstorm,
         Snow,
     }
-
 }

@@ -32,9 +32,9 @@ namespace Chilly.Clients
             return ret;
         }
 
-        public Forecast GetForecast(GeoLocale locale)
+        public Forecast GetForecast(GeoLocale locale, bool useMetric = false)
         {
-            var json = WeatherOneCallLookup(locale);
+            var json = WeatherOneCallLookup(locale, useMetric);
             JObject root = JObject.Parse(json);
 
             int timeOffset = ((int?)root["timezone_offset"]) ?? 0;
@@ -45,6 +45,7 @@ namespace Chilly.Clients
                 Current = ParseCurrent(root["current"] as JObject, timeOffset),
                 Hourly = ParseHourly(root["hourly"] as JArray, timeOffset),
                 Daily = ParseDaily(root["daily"] as JArray, timeOffset),
+                IsMetric = useMetric
             };
         }
 
@@ -152,12 +153,14 @@ namespace Chilly.Clients
         private string u(string s)
             => WebUtility.UrlEncode(s);
 
-        private string WeatherOneCallLookup(GeoLocale geoLocale)
-        => WeatherOneCallLookup(geoLocale.Longitude, geoLocale.Latitude);
+        private string WeatherOneCallLookup(GeoLocale geoLocale, bool useMetric = false)
+        => WeatherOneCallLookup(geoLocale.Longitude, geoLocale.Latitude, useMetric);
 
-        private string WeatherOneCallLookup(double lon, double lat)
+        private string WeatherOneCallLookup(double lon, double lat, bool useMetric = false)
         {
-            var url = $"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely&units=imperial&appid={ApiKey}";
+            var units = useMetric ? "metric" : "imperial";
+
+            var url = $"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely&units={units}&appid={ApiKey}";
             var json = client.DownloadString(url);
             return json;
         }

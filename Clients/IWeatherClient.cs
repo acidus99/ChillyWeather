@@ -7,6 +7,6 @@ namespace Chilly.Clients
     public interface IWeatherClient
     {
         List<GeoLocale> LookupLocale(string query);
-        Forecast GetForecast(GeoLocale locale);
+        Forecast GetForecast(GeoLocale locale, bool useMetric=false);
     }
 }

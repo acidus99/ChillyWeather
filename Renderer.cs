@@ -20,7 +20,7 @@ namespace Chilly
         public void Render(Forecast forecast)
         {
             Fout.WriteLine($"Weather for {forecast.Location.Name} @ {formatter.FormatTime(forecast.Current.Time)}");
-            Fout.WriteLine($"{formatter.EmojiForCurrentWeather(forecast.Current)} {formatter.FormatTemp(forecast.Current.Temp)}F");
+            Fout.WriteLine($"{formatter.EmojiForCurrentWeather(forecast.Current)} {formatter.FormatTemp(forecast.Current.Temp)}");
             Fout.WriteLine($"{formatter.FormatDescription(forecast.Current.Weather)}");
 
             Fout.WriteLine();
