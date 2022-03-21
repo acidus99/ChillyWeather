@@ -23,7 +23,7 @@ namespace Chilly.Clients
 
         public List<GeoLocale> LookupLocale(string query)
         {
-            var url = $"http://api.openweathermap.org/geo/1.0/direct?q={u(query)}&limit=5&appid={ApiKey}";
+            var url = $"https://api.openweathermap.org/geo/1.0/direct?q={u(query)}&limit=5&appid={ApiKey}";
 
             var json = client.DownloadString(url);
             var resp = JsonConvert.DeserializeObject<GeoLocale[]>(json);
