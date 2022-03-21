@@ -9,7 +9,10 @@ namespace Chilly
         static void Main(string[] args)
         {
             IWeatherClient client = ClientForge.ConfigureWeatherClient();
-            var locations = client.LookupLocale("Atlanta GA");
+
+            string query = GetQueryFromArgs(args);
+
+            var locations = client.LookupLocale(query);
             Forecast forecast = null;
             if(locations.Count > 0)
             {
@@ -17,6 +20,12 @@ namespace Chilly
                 Renderer renderer = new Renderer(Console.Out);
                 renderer.Render(forecast);
             }
+            if (System.Diagnostics.Debugger.IsAttached)
+                System.Diagnostics.Debugger.Break();
         }
+
+        static string GetQueryFromArgs(string [] args)
+            => string.Join(" ", args);
+
     }
 }
