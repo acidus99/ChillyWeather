@@ -12,14 +12,31 @@ namespace Chilly
 
             string query = GetQueryFromArgs(args);
 
-            var locations = client.LookupLocale(query);
-            Forecast forecast = null;
-            if(locations.Count > 0)
+            GeoLocale locale = null;
+            if (query.Length > 0)
             {
-                forecast = client.GetForecast(locations[0]);
-                Renderer renderer = new Renderer(Console.Out);
-                renderer.Render(forecast);
+                var locations = client.LookupLocale(query);
+                if(locations.Count > 0)
+                {
+                    //TODO: Display multiple locales to the user
+                    locale = locations[0];
+                } else
+                {
+                    Console.WriteLine($"No locations found for '{query}'");
+                }
             }
+
+            if(locale == null)
+            {
+                Console.WriteLine("Getting weather for current location");
+                ILocaleClient localeClient = new FreeIpApiClient();
+                locale = localeClient.GetCurrentLocale();
+            }
+
+            var forecast = client.GetForecast(locale);
+            Renderer renderer = new Renderer(Console.Out);
+            renderer.Render(forecast);
+
             if (System.Diagnostics.Debugger.IsAttached)
                 System.Diagnostics.Debugger.Break();
         }
