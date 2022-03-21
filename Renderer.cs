@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.IO;
 
-using WeatherCat.Models;
+using Chilly.Models;
 
-namespace WeatherCat
+namespace Chilly
 {
     public class Renderer
     {
