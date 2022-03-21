@@ -3,11 +3,11 @@ using System.Net;
 using System;
 using System.Linq;
 
-using WeatherCat.Models;
+using Chilly.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace WeatherCat.Clients
+namespace Chilly.Clients
 {
     public class OpenWeatherClient : IWeatherClient
     {

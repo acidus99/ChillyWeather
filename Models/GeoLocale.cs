@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
 
-namespace WeatherCat.Models
+namespace Chilly.Models
 {
     public class GeoLocale
     {

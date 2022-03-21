@@ -1,14 +1,14 @@
 ﻿using System;
 using System.IO;
 
-using WeatherCat.Clients;
-using WeatherCat.Models;
+using Chilly.Clients;
+using Chilly.Models;
 
 using IniParser;
 using IniParser.Model;
 
 
-namespace WeatherCat
+namespace Chilly
 {
     static class Program
     {
@@ -30,7 +30,7 @@ namespace WeatherCat
 
         }
 
-        private static IWeatherClient ConfigureClient()
+        public static IWeatherClient ConfigureClient()
         {
             string configFile = GetConfigFile();
             if (!File.Exists(configFile))

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using WeatherCat.Models;
-namespace WeatherCat.Clients
+using Chilly.Models;
+namespace Chilly.Clients
 {
     public interface IWeatherClient
     {

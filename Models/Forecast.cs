@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WeatherCat.Models
+namespace Chilly.Models
 {
     /// <summary>
     /// A condition at a specific point in time
