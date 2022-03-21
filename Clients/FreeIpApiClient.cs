@@ -12,9 +12,9 @@ namespace Chilly.Clients
     public class FreeIpApiClient : ILocaleClient
     {
         WebClient client = new WebClient();
-        public GeoLocale GetCurrentLocale()
+        public GeoLocale GetIPLocale(string ip)
         {
-            var url = $"https://freeipapi.com/api/json";
+            var url = $"https://freeipapi.com/api/json/{ip}";
 
             var json = client.DownloadString(url);
             var resp = JObject.Parse(json);
@@ -27,6 +27,9 @@ namespace Chilly.Clients
                 Latitude = Coordinate(resp["latitude"])
             };
         }
+
+        public GeoLocale GetCurrentLocale()
+            => GetIPLocale("");
 
         private string Cleanse(JToken token)
             => token?.ToString() ?? "";
