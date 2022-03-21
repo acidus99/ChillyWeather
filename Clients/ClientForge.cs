@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 
-using IniParser;
-using IniParser.Model;
+
 namespace Chilly.Clients
 {
     public static class ClientForge
@@ -21,10 +20,14 @@ namespace Chilly.Clients
             }
             try
             {
-                var parser = new FileIniDataParser();
-                IniData data = parser.ReadFile(configFile);
-                var apiKey = data["api"]["OpenWeatherKey"];
-                return new OpenWeatherClient(apiKey);
+                string contents = File.ReadAllText(configFile);
+                if(contents.StartsWith("OpenWeatherKey="))
+                {
+                    var apiKey = contents.Substring("OpenWeatherKey=".Length);
+                    return new OpenWeatherClient(apiKey);
+                }
+                throw new ApplicationException();
+               
             }
             catch (Exception ex)
             {
