@@ -21,7 +21,7 @@ namespace Chilly
 
         public string FormatDay(DateTime curr, DateTime next)
         {
-            if (curr.AddDays(1) > next)
+            if (curr.Date.AddDays(1) == next.Date)
             {
                 return "Tomorrow";
             }
