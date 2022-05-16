@@ -47,7 +47,6 @@ namespace Chilly
             }
         }
 
-
         public string FormatHour(DateTime time)
             => (IsMetric) ? time.ToString("H:00") : time.ToString("h tt");
 
@@ -63,48 +62,51 @@ namespace Chilly
         public string DegreeUnit
             => IsMetric ? "°C" : "°F";
 
-        public string EmojiForCurrentWeather(CurrentCondition current)
+        public string EmojiForWeather(WeatherType weather, bool isSunUp = true)
         {
-            //is it night or day?
-            bool IsDay = (current.Time > current.Sunrise && current.Time < current.Sunset);
-            if (IsDay)
+            if (isSunUp)
             {
-                return EmojiForWeather(current.Weather.Type);
+                switch (weather)
+                {
+                    case WeatherType.ScatteredClouds:
+                        return "🌤";
+                    case WeatherType.PartlyCloudy:
+                        return "⛅️";
+                    case WeatherType.Cloudy:
+                        return "🌥";
+                    case WeatherType.Overcast:
+                        return "☁️";
+                    case WeatherType.Rain:
+                        return "☔️";
+                    case WeatherType.Snow:
+                        return "❄️";
+                    case WeatherType.Thunderstorm:
+                        return "⛈";
+                    default:
+                        return "☀️";
+                }
             }
-            //if the emoji doesn't have a sun, pass it through. overwise flip it to a moon
-            //TODO: change the moon emoji based on the moon phase
-            switch (current.Weather.Type)
+            else
             {
-                case WeatherType.Rain:
-                case WeatherType.Snow:
-                case WeatherType.Thunderstorm:
-                    return EmojiForWeather(current.Weather.Type);
-                default:
-                    return "🌕";
-            }
-        }
-
-        public string EmojiForWeather(WeatherType weather)
-        {
-            switch (weather)
-            {
-                case WeatherType.ScatteredClouds:
-                    return "🌤";
-                case WeatherType.PartlyCloudy:
-                    return "⛅️";
-                case WeatherType.Cloudy:
-                    return "🌥";
-                case WeatherType.Overcast:
-                    return "☁️";
-                case WeatherType.Rain:
-                    return "☔️";
-                case WeatherType.Snow:
-                    return "❄️";
-                case WeatherType.Thunderstorm:
-                    return "⛈";
-                default:
-                    //clear, so return a sun or moon based on 
-                    return "☀️";
+                switch (weather)
+                {
+                    //no emoji with cloud over moon, so just show a cloud
+                    case WeatherType.ScatteredClouds:
+                    case WeatherType.PartlyCloudy:
+                    case WeatherType.Cloudy:
+                    case WeatherType.Overcast:
+                        return "☁️";
+                    case WeatherType.Rain:
+                        return "☔️";
+                    case WeatherType.Snow:
+                        return "❄️";
+                    case WeatherType.Thunderstorm:
+                        return "⛈";
+                    default:
+                        //clear, so show moon
+                        //todo: add phases of moon?
+                        return "🌕";
+                }
             }
         }
 
