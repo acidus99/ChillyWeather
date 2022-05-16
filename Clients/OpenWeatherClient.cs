@@ -99,6 +99,8 @@ namespace Chilly.Clients
                     HighTemp = ((float)day["temp"]["max"]),
                     Weather = ParseWeather(day["weather"] as JArray),
                     ChanceOfPrecipitation = ((float)day["pop"]),
+                    Sunrise = AdjustDateTime(day["sunrise"], timeOffset),
+                    Sunset = AdjustDateTime(day["sunset"], timeOffset),
                 });
             }
             return dailyConditions.ToArray();
