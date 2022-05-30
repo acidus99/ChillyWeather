@@ -50,8 +50,11 @@ namespace Chilly
         public string FormatHour(DateTime time)
             => (IsMetric) ? time.ToString("H:00") : time.ToString("h tt");
 
-        public string FormatTime(DateTime time)
+        public string FormatDayTime(DateTime time)
             => (IsMetric) ? time.ToString("ddd d H:mm") : time.ToString("ddd d h:mm tt");
+
+        public string FormatTime(DateTime time)
+            => (IsMetric) ? time.ToString("H:mm") : time.ToString("h:mm tt");
 
         public string FormatChance(float chance)
             => chance.ToString("P", culture.NumberFormat);
