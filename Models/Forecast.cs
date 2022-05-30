@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Chilly.Models
 {
@@ -22,6 +23,18 @@ namespace Chilly.Models
 
     public class HourlyCondition : CurrentCondition
     {
+        /// <summary>
+        /// 0-1.0: % chance of Precipitation
+        /// </summary>
+        public float ChanceOfPrecipitation { get; set; }
+    }
+
+    public class RemainingToday
+    {
+        public int RemainingHours { get; set; }
+        public float HighTemp { get; set; }
+        public float LowTemp { get; set; }
+
         /// <summary>
         /// 0-1.0: % chance of Precipitation
         /// </summary>
@@ -56,6 +69,36 @@ namespace Chilly.Models
         public DailyCondition[] Daily { get; set; }
 
         public bool IsMetric { get; set; }
+
+        public RemainingToday GetRemainingToday()
+        {
+            var remainingHours = Hourly.Where(x => (x.Time >= Current.Time && x.Time.Date == Current.Time.Date));
+            if (remainingHours.Count() > 0)
+            {
+                return new RemainingToday
+                {
+                    RemainingHours = remainingHours.Count(),
+                    LowTemp = remainingHours.Min(x => x.Temp),
+                    HighTemp = remainingHours.Max(x => x.Temp),
+                    ChanceOfPrecipitation = remainingHours.Max(x => x.ChanceOfPrecipitation)
+                };
+            } else
+            {
+                return null;
+            }
+        }
+
+        public DailyCondition GetDailyCondition(DateTime time)
+        {
+            foreach (DailyCondition daily in Daily)
+            {
+                if (daily.Time.Date == time.Date)
+                {
+                    return daily;
+                }
+            }
+            return null;
+        }
 
         /// <summary>
         /// Determines if a datetime occuring when the sun is up. If we don't
