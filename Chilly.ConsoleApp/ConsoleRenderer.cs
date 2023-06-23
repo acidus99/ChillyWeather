@@ -1,4 +1,4 @@
-﻿namespace Chilly;
+﻿namespace Chilly.ConsoleApp;
 
 using Chilly.Models;
 

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿namespace Chilly.Clients;
+
+using System.Collections.Generic;
 
 using Chilly.Models;
-namespace Chilly.Clients
+
+public interface IWeatherClient
 {
-    public interface IWeatherClient
-    {
-        List<GeoLocale> LookupLocale(string query);
-        Forecast GetForecast(GeoLocale locale, bool useMetric=false);
-    }
+    List<GeoLocale> LookupLocale(string query);
+    Forecast GetForecast(GeoLocale locale, bool useMetric=false);
 }

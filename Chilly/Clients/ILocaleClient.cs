@@ -1,11 +1,9 @@
-﻿using System;
+﻿namespace Chilly.Clients;
+
 using Chilly.Models;
 
-namespace Chilly.Clients
+public interface ILocaleClient
 {
-    public interface ILocaleClient
-    {
-        GeoLocale GetCurrentLocale();
-        GeoLocale GetIPLocale(string ip);
-    }
+    GeoLocale GetCurrentLocale();
+    GeoLocale GetIPLocale(string ip);
 }
