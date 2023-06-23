@@ -10,31 +10,10 @@ static class Program
     {
         IWeatherClient client = ClientForge.ConfigureWeatherClient();
 
-        string query = GetQueryFromArgs(args);
-
-        GeoLocale locale = null;
-        if (query.Length > 0)
-        {
-            var locations = client.LookupLocale(query);
-            if (locations.Count > 0)
-            {
-                //TODO: Display multiple locales to the user
-                locale = locations[0];
-            }
-            else
-            {
-                Console.WriteLine($"No locations found for '{query}'");
-            }
-        }
-
-        if (locale == null)
-        {
-            Console.WriteLine("Getting weather for current location");
-            ILocaleClient localeClient = new FreeIpApiClient();
-            locale = localeClient.GetCurrentLocale();
-        }
+        GeoLocale locale = GetLocale(client, args);
 
         var forecast = client.GetForecast(locale);
+
         var renderer = new ConsoleRenderer(Console.Out);
         renderer.Render(forecast);
 
@@ -42,7 +21,21 @@ static class Program
             System.Diagnostics.Debugger.Break();
     }
 
-    static string GetQueryFromArgs(string[] args)
-        => string.Join(" ", args);
-
+    static GeoLocale GetLocale(IWeatherClient client, string[] args)
+    {
+        var query = string.Join(" ", args);
+        if (query.Length > 0)
+        {
+            var locations = client.LookupLocale(query);
+            if (locations.Count > 0)
+            {
+                return locations[0];
+            }
+        }
+        Console.WriteLine($"No locations found for '{query}'.");
+        Console.WriteLine("Using IP Address for current location");
+        
+        ILocaleClient localeClient = new FreeIpApiClient();
+        return localeClient.GetCurrentLocale();
+    }
 }
