@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.19
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chilly", "Chilly.csproj", "{0C92FA54-1044-4CB7-A595-1A5E929C6961}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chilly", "Chilly\Chilly.csproj", "{0C92FA54-1044-4CB7-A595-1A5E929C6961}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChillyCgi", "Chilly.Cgi\Chilly.Cgi.csproj", "{2B2D9362-4121-4AAB-BCB3-2493CFA52777}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemini.Cgi", "..\Gemini.Cgi\Gemini.Cgi.csproj", "{77FC93AE-9EC1-41F2-927F-C6388E63F79B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{0C92FA54-1044-4CB7-A595-1A5E929C6961}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C92FA54-1044-4CB7-A595-1A5E929C6961}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C92FA54-1044-4CB7-A595-1A5E929C6961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B2D9362-4121-4AAB-BCB3-2493CFA52777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B2D9362-4121-4AAB-BCB3-2493CFA52777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B2D9362-4121-4AAB-BCB3-2493CFA52777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B2D9362-4121-4AAB-BCB3-2493CFA52777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77FC93AE-9EC1-41F2-927F-C6388E63F79B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77FC93AE-9EC1-41F2-927F-C6388E63F79B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77FC93AE-9EC1-41F2-927F-C6388E63F79B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77FC93AE-9EC1-41F2-927F-C6388E63F79B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
