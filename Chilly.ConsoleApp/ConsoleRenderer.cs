@@ -5,7 +5,7 @@ using Chilly.Models;
 /// <summary>
 /// Implements forecast rendering to the console.
 /// </summary>
-public class ConsoleRenderer : AbstractFormatRenderer
+public class ConsoleRenderer : AbstractForcastRenderer
 {
     public ConsoleRenderer(TextWriter fout)
         : base(fout) { }
