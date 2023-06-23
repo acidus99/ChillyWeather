@@ -17,8 +17,8 @@ namespace Chilly.Models
 
     public class Weather
     {
-        public string Description { get; set; }
-        public WeatherType Type { get; set; }
+        public required string Description { get; set; }
+        public required WeatherType Type { get; set; }
     }
 
     public class HourlyCondition : CurrentCondition

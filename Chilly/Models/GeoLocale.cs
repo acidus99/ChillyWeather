@@ -5,18 +5,18 @@ namespace Chilly.Models
     public class GeoLocale
     {
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         [JsonProperty("state")]
-        public string State { get; set; }
+        public required string State { get; set; }
 
         [JsonProperty("country")]
-        public string Country { get; set; }
+        public required string Country { get; set; }
 
         [JsonProperty("lon")]
-        public double Longitude { get; set; }
+        public required double Longitude { get; set; }
 
         [JsonProperty("lat")]
-        public double Latitude { get; set; }
+        public required double Latitude { get; set; }
     }
 }
