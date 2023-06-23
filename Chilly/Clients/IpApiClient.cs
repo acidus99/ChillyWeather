@@ -20,20 +20,14 @@ public class IpApiClient : ILocaleClient
         var resp = JObject.Parse(json);
         return new GeoLocale
         {
-            Name = Cleanse(resp["city"]),
-            State = Cleanse(resp["regionName"]),
-            Country = Cleanse(resp["countryCode"]),
-            Longitude = Coordinate(resp["lon"]),
-            Latitude = Coordinate(resp["lat"])
+            Name = ParseUtils.Cleanse(resp["city"]),
+            State = ParseUtils.Cleanse(resp["regionName"]),
+            Country = ParseUtils.Cleanse(resp["countryCode"]),
+            Longitude = ParseUtils.GetCoordinate(resp["lon"]),
+            Latitude = ParseUtils.GetCoordinate(resp["lat"])
         };
     }
 
     public GeoLocale GetCurrentLocale()
         => GetIPLocale("");
-
-    private string Cleanse(JToken token)
-        => token?.ToString() ?? "";
-
-    private double Coordinate(JToken token)
-        => (token != null) ? Convert.ToDouble(token.ToString()) : 0;
 }
