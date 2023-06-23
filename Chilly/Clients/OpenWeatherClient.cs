@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
-using System;
 
 using Chilly.Models;
 using Newtonsoft.Json;
@@ -10,7 +10,6 @@ namespace Chilly.Clients
 {
     public class OpenWeatherClient : IWeatherClient
     {
-
         string ApiKey;
 
         WebClient client = new WebClient();
