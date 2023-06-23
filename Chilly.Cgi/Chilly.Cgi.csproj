@@ -12,10 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChillyWeather\Chilly.csproj" />
-    <ProjectReference Include="..\Gemini.Cgi\Gemini.Cgi.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove=".gitattributes" />
     <None Remove=".gitignore" />
     <None Remove="LICENSE" />
@@ -34,5 +30,9 @@
     <Content Include="static\about.gmi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chilly\Chilly.csproj" />
+    <ProjectReference Include="..\..\Gemini.Cgi\Gemini.Cgi.csproj" />
   </ItemGroup>
 </Project>
