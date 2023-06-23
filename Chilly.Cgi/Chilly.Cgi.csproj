@@ -21,9 +21,6 @@
     <None Remove="static\about.gmi" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="static\" />
   </ItemGroup>
   <ItemGroup>
