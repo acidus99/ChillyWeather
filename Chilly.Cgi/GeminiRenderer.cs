@@ -7,48 +7,42 @@ using System.Linq;
 using Chilly;
 using Chilly.Models;
 
-public class GeminiRenderer
+public class GeminiRenderer : AbstractForcastRenderer
 {
-    TextWriter Fout;
-    Formatter formatter;
+    public GeminiRenderer(TextWriter _fout)
+        : base(_fout) { }
 
-    public GeminiRenderer(TextWriter fout)
+    public override void Render(Forecast forecast)
     {
-        Fout = fout;
-        formatter = new Formatter();
-    }
+        _formatter.IsMetric = forecast.IsMetric;
 
-    public void Render(Forecast forecast)
-    {
-        formatter.IsMetric = forecast.IsMetric;
+        _fout.WriteLine($"# ⛄️ Chilly Weather: {forecast.Location.Name}");
+        _fout.WriteLine($"Weather for {forecast.Location.Name} @ {_formatter.FormatDayTime(forecast.Current.Time)}");
 
-        Fout.WriteLine($"# ⛄️ Chilly Weather: {forecast.Location.Name}");
-        Fout.WriteLine($"Weather for {forecast.Location.Name} @ {formatter.FormatDayTime(forecast.Current.Time)}");
+        _fout.WriteLine("=> /cgi-bin/chilly.cgi/search Wrong Location? Search");
 
-        Fout.WriteLine("=> /cgi-bin/chilly.cgi/search Wrong Location? Search");
-
-        if (formatter.IsMetric)
+        if (_formatter.IsMetric)
         {
-            Fout.WriteLine("=> ?f Use Fahrenheit");
+            _fout.WriteLine("=> ?f Use Fahrenheit");
         }
         else
         {
-            Fout.WriteLine("=> ?c Use Celsius");
+            _fout.WriteLine("=> ?c Use Celsius");
         }
 
-        Fout.WriteLine($"Now: {formatter.EmojiForWeather(forecast.Current.Weather.Type, forecast.IsSunCurrentlyUp)} {formatter.FormatTemp(forecast.Current.Temp)} {formatter.FormatDescription(forecast.Current.Weather)}");
+        _fout.WriteLine($"Now: {_formatter.EmojiForWeather(forecast.Current.Weather.Type, forecast.IsSunCurrentlyUp)} {_formatter.FormatTemp(forecast.Current.Temp)} {_formatter.FormatDescription(forecast.Current.Weather)}");
         var remainingToday = forecast.GetRemainingToday();
         if(remainingToday != null && remainingToday.RemainingHours > 4)
         {
-            Fout.Write($"Rest of Today: {formatter.FormatTemp(remainingToday.LowTemp)} to {formatter.FormatTemp(remainingToday.HighTemp)}");
+            _fout.Write($"Rest of Today: {_formatter.FormatTemp(remainingToday.LowTemp)} to {_formatter.FormatTemp(remainingToday.HighTemp)}");
             if(remainingToday.ChanceOfPrecipitation > 0)
             {
-                Fout.Write($"💧 {formatter.FormatChance(remainingToday.ChanceOfPrecipitation)}");
+                _fout.Write($"💧 {_formatter.FormatChance(remainingToday.ChanceOfPrecipitation)}");
             }
-            Fout.WriteLine();
+            _fout.WriteLine();
         }
-        Fout.WriteLine();
-        Fout.WriteLine("## Next 24 hours");
+        _fout.WriteLine();
+        _fout.WriteLine("## Next 24 hours");
 
         DateTime last = DateTime.Now;
         //skip every other hour
@@ -63,34 +57,34 @@ public class GeminiRenderer
             //get Daily condition for hour
             var daily = forecast.GetDailyCondition(hour.Time);
             RenderSunChange(hour, daily, last);
-            Fout.Write($"* {formatter.FormatHour(hour.Time)}: {formatter.EmojiForWeather(hour.Weather.Type, forecast.IsSunUp(hour.Time))} {formatter.FormatTemp(hour.Temp)} ");
+            _fout.Write($"* {_formatter.FormatHour(hour.Time)}: {_formatter.EmojiForWeather(hour.Weather.Type, forecast.IsSunUp(hour.Time))} {_formatter.FormatTemp(hour.Temp)} ");
             if(hour.ChanceOfPrecipitation != 0)
             {
-                Fout.Write($"💧 {formatter.FormatChance(hour.ChanceOfPrecipitation)} - ");
+                _fout.Write($"💧 {_formatter.FormatChance(hour.ChanceOfPrecipitation)} - ");
             }
-            Fout.WriteLine(formatter.FormatDescription(hour.Weather));
+            _fout.WriteLine(_formatter.FormatDescription(hour.Weather));
             last = hour.Time;
         }
 
-        Fout.WriteLine();
+        _fout.WriteLine();
 
-        Fout.WriteLine("## Next 7 Days");
+        _fout.WriteLine("## Next 7 Days");
         foreach(DailyCondition daily in forecast.Daily)
         {
             if (daily.Time.Date <= forecast.Current.Time.Date)
             {
                 continue;
             }
-            Fout.WriteLine($"{formatter.FormatDay(forecast.Current.Time, daily.Time)}: {formatter.EmojiForWeather(daily.Weather.Type)} {formatter.FormatTemp(daily.LowTemp)} to {formatter.FormatTemp(daily.HighTemp)}");
+            _fout.WriteLine($"{_formatter.FormatDay(forecast.Current.Time, daily.Time)}: {_formatter.EmojiForWeather(daily.Weather.Type)} {_formatter.FormatTemp(daily.LowTemp)} to {_formatter.FormatTemp(daily.HighTemp)}");
             if (daily.ChanceOfPrecipitation == 0)
             {
-                Fout.WriteLine($"\t{formatter.FormatDescription(daily.Weather)}");
+                _fout.WriteLine($"\t{_formatter.FormatDescription(daily.Weather)}");
             }
             else
             {
-                Fout.WriteLine($"\t💧 {formatter.FormatChance(daily.ChanceOfPrecipitation)} - {formatter.FormatDescription(daily.Weather)}");
+                _fout.WriteLine($"\t💧 {_formatter.FormatChance(daily.ChanceOfPrecipitation)} - {_formatter.FormatDescription(daily.Weather)}");
             }
-            Fout.WriteLine();
+            _fout.WriteLine();
         }
     }
 
@@ -99,10 +93,10 @@ public class GeminiRenderer
         //did sunset occur between last and current
         if (OccurredBetween(lastUpdate, hour.Time, daily.Sunrise))
         {
-            Fout.WriteLine($"* {formatter.FormatTime(daily.Sunrise)}: 🌅 Sunrise");
+            _fout.WriteLine($"* {_formatter.FormatTime(daily.Sunrise)}: 🌅 Sunrise");
         } else if (OccurredBetween(lastUpdate, hour.Time, daily.Sunset))
         {
-            Fout.WriteLine($"* {formatter.FormatTime(daily.Sunset)}: 🌅 Sunset");
+            _fout.WriteLine($"* {_formatter.FormatTime(daily.Sunset)}: 🌅 Sunset");
         }
     }
 
