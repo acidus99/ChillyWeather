@@ -34,18 +34,10 @@ class Program
     {
         using (var cgi = new CgiWrapper())
         {
-            WeatherForLocale(cgi);
+            ILocaleClient localeClient = new FreeIpApiClient();
+            var locale = localeClient.GetCurrentLocale();
+            RenderWeather(cgi, locale);
         }
-        GeoLocale locale = new GeoLocale
-        {
-            Latitude = 44.0077859,
-            Longitude = -97.6962364,
-            Country = "US"
-        };
-
-        var client = ClientForge.ConfigureWeatherClient();
-        client.GetForecast(locale);
-
     }
 
     static void WeatherForCurrentLocation(CgiWrapper cgi)
@@ -70,7 +62,7 @@ class Program
 
         cgi.Success();
         cgi.Writer.WriteLine("## Discovered locations");
-        if (locales.Count > 0)
+        if (locales.Length > 0)
         {
             foreach (var locale in locales)
             {

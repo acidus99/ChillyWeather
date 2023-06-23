@@ -6,6 +6,6 @@ using Chilly.Models;
 
 public interface IWeatherClient
 {
-    List<GeoLocale> LookupLocale(string query);
+    GeoLocale[]? LookupLocale(string query);
     Forecast GetForecast(GeoLocale locale, bool useMetric=false);
 }

@@ -27,7 +27,7 @@ static class Program
         if (query.Length > 0)
         {
             var locations = client.LookupLocale(query);
-            if (locations.Count > 0)
+            if (locations.Length > 0)
             {
                 return locations[0];
             }

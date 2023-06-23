@@ -19,16 +19,12 @@ public class OpenWeatherClient : IWeatherClient
         ApiKey = apiKey;
     }
 
-    public List<GeoLocale> LookupLocale(string query)
+    public GeoLocale[]? LookupLocale(string query)
     {
         var url = $"https://api.openweathermap.org/geo/1.0/direct?q={u(query)}&limit=25&appid={ApiKey}";
 
         var json = client.DownloadString(url);
-        var resp = JsonConvert.DeserializeObject<GeoLocale[]>(json);
-
-        List<GeoLocale> ret = new List<GeoLocale>();
-        ret.AddRange(resp);
-        return ret;
+        return JsonConvert.DeserializeObject<GeoLocale[]>(json);
     }
 
     public Forecast GetForecast(GeoLocale locale, bool useMetric = false)
@@ -110,17 +106,20 @@ public class OpenWeatherClient : IWeatherClient
         var weather = (weatherArray[0] as JObject);
         return new Weather
         {
-            Description = weather["description"].ToString(),
-            Type = ParseWeatherID(((int)weather["id"]))
+            Description =  ParseUtils.Cleanse(weather["description"]),
+            Type = ParseWeatherID(weather["id"])
         };
     }
 
-    private WeatherType ParseWeatherID(int weatherID)
+    private WeatherType ParseWeatherID(JToken? weather)
     {
-        if(weatherID >= 200 && weatherID < 232)
+        int weatherID = weather?.ToObject<int>() ?? 0;
+
+        if (weatherID >= 200 && weatherID < 232)
         {
             return WeatherType.Thunderstorm;
-        } else if (weatherID >= 300 && weatherID < 321)
+        }
+        else if (weatherID >= 300 && weatherID < 321)
         {
             return WeatherType.Rain;
         }
