@@ -10,7 +10,7 @@ public class Formatter
 {
     CultureInfo culture;
 
-    public bool IsMetric;
+    public bool IsMetric { get; set; }
 
     public Formatter(string cultureName = "en-US")
     {
