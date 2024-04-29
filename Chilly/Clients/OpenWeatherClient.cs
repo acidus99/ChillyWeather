@@ -160,7 +160,7 @@ public class OpenWeatherClient : IWeatherClient
     {
         var units = useMetric ? "metric" : "imperial";
 
-        var url = $"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely&units={units}&appid={ApiKey}";
+        var url = $"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude=minutely&units={units}&appid={ApiKey}";
         var json = client.DownloadString(url);
 
         return json;
