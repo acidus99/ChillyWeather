@@ -22,7 +22,7 @@ public static class ClientForge
             string contents = File.ReadAllText(configFile);
             if(contents.StartsWith("OpenWeatherKey="))
             {
-                var apiKey = contents.Substring("OpenWeatherKey=".Length);
+                var apiKey = contents.Substring("OpenWeatherKey=".Length).Trim();
                 return new OpenWeatherClient(apiKey);
             }
             throw new ApplicationException();
