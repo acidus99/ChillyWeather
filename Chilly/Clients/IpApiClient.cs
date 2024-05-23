@@ -1,8 +1,7 @@
 ﻿namespace Chilly.Clients;
 
 using System;
-using System.Net;
-
+using CacheComms;
 using Chilly.Models;
 using Newtonsoft.Json.Linq;
 
@@ -11,13 +10,14 @@ using Newtonsoft.Json.Linq;
 /// </summary>
 public class IpApiClient : ILocaleClient
 {
-    WebClient client = new WebClient();
+    HttpRequestor Requestor = new HttpRequestor();
+
     public GeoLocale GetIPLocale(string ip)
     {
-        var url = $"http://ip-api.com/json/{ip}";
+        var url = new Uri($"http://ip-api.com/json/{ip}");
 
-        var json = client.DownloadString(url);
-        var resp = JObject.Parse(json);
+        Requestor.GetAsString(url);
+        var resp = JObject.Parse(Requestor.BodyText);
         return new GeoLocale
         {
             Name = ParseUtils.Cleanse(resp["city"]),

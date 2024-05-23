@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemini.Cgi", "..\Gemini.Cgi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chilly.ConsoleApp", "Chilly.ConsoleApp\Chilly.ConsoleApp.csproj", "{0C0083CC-D0B9-4872-8C13-613B5C5D4A30}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheComms", "..\CacheComms\CacheComms.csproj", "{384ED24C-C823-4605-9D7D-042284DCDC3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0C0083CC-D0B9-4872-8C13-613B5C5D4A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C0083CC-D0B9-4872-8C13-613B5C5D4A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C0083CC-D0B9-4872-8C13-613B5C5D4A30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{384ED24C-C823-4605-9D7D-042284DCDC3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{384ED24C-C823-4605-9D7D-042284DCDC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{384ED24C-C823-4605-9D7D-042284DCDC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{384ED24C-C823-4605-9D7D-042284DCDC3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

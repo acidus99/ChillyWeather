@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-
+using CacheComms;
 using Chilly.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -12,19 +12,21 @@ public class OpenWeatherClient : IWeatherClient
 {
     string ApiKey;
 
-    WebClient client = new WebClient();
+    HttpRequestor Requestor;
 
     public OpenWeatherClient(string apiKey)
     {
         ApiKey = apiKey;
+        Requestor = new HttpRequestor();
+        //cache weather results for 10 minutes
+        Requestor.CacheExpiration = TimeSpan.FromMinutes(10);
     }
 
     public GeoLocale[]? LookupLocale(string query)
     {
-        var url = $"https://api.openweathermap.org/geo/1.0/direct?q={u(query)}&limit=25&appid={ApiKey}";
-
-        var json = client.DownloadString(url);
-        return JsonConvert.DeserializeObject<GeoLocale[]>(json);
+        var url = new Uri($"https://api.openweathermap.org/geo/1.0/direct?q={u(query)}&limit=25&appid={ApiKey}");
+        Requestor.GetAsString(url);
+        return JsonConvert.DeserializeObject<GeoLocale[]>(Requestor.BodyText);
     }
 
     public Forecast GetForecast(GeoLocale locale, bool useMetric = false)
@@ -160,9 +162,8 @@ public class OpenWeatherClient : IWeatherClient
     {
         var units = useMetric ? "metric" : "imperial";
 
-        var url = $"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude=minutely&units={units}&appid={ApiKey}";
-        var json = client.DownloadString(url);
-
-        return json;
+        var url = new Uri($"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude=minutely&units={units}&appid={ApiKey}");
+        Requestor.GetAsString(url);
+        return Requestor.BodyText;
     }
 }
