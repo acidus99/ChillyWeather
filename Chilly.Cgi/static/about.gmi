@@ -1,7 +1,7 @@
 # About ⛄️ Chilly Weather
 
 ## What?
-⛄️ Chilly Weather is a Gemini service that returns the current weather in a fun and streamlined way
+⛄️ Chilly Weather is a Gemini service that returns the current weather in a fun, streamlined way.
 
 Features:
 * Shows current weather, next 24 hours forecast, and next 7 days forecast.
@@ -9,16 +9,16 @@ Features:
 * Uses Emoji *and* a description to represent weather conditions. Because "🌤" is more skimmable than "Scattered cloudy"
 * Chilly uses your client's IP to geolocate you, and looks up the weather from there.
 * You can also search for a location and see the weather there.
-* No need to select the metric, or displaying both Fahrenheit and Celsius. Chilly uses the country you are in to decide the units to display.
+* No need to select the metric or display both Fahrenheit and Celsius. Chilly uses the country you are in to decide the units to display.
 
 ## So... Celsius?
-As a nerd, I appreciate the value of Celsius for scientific applications. But it a complete garbage scale to use for human-range temperatures. If you want to be depraved, I'm not going to stop you.
+As a nerd, I appreciate the value of Celsius for scientific applications. But it's a complete garbage scale to use for human-range temperatures. If you want to be depraved, I'm not going to stop you.
 
 ## Why?
 Where possible, I want to use simple services in Gemini instead of HTTP/HTML. So that means ignoring most web-based weather services.
 
-While there are a few weather services in Gemini, none of them presented the data that I cared about, in a format that I found easy to read. Also, I think weather apps are cool to hack on because, while getting the data isn't necessarily hard, there are so many fun challenges and choices for how display it:
-* What metrics do you care about? (temperature vs "feels like" temperature, barometric pressure, humidity chance of precipitation, wind)
+While there are a few weather services in Gemini, none of them presented the data that I cared about in a format that I found easy to read. Also, I think weather apps are cool to hack on because, while getting the data isn't necessarily hard, there are so many fun challenges and choices for how to display it:
+* What metrics do you care about? (temperature vs. "feels like" temperature, barometric pressure, humidity, chance of precipitation, wind)
 * What events do you care about? (sunrise, sunset, moon, etc)
 * How do optimize for readability? ("Cloudy overnight with showers starting around 2am" vs a list of times and conditions)
 
@@ -35,9 +35,8 @@ Chilly also uses Gemini.Cgi, a reusable CGI framework:
 => https://github.com/acidus99/Gemini.Cgi Gemini.Cgi on Github
 
 ## Let me see the code!
-Sure. You can access it via Gemini or HTTP
+Sure. You can access it via Gemini or HTTP.
 => https://github.com/acidus99/ChillyWeather ChillyWeather on Github
-=> https://github.com/acidus99/ChillyWeather.Cgi ChillyWeather.Cgi on Github
 
 ---
 => /cgi-bin/chilly.cgi/search Search for a specific location
